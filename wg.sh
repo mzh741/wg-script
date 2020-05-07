@@ -420,8 +420,13 @@ enable_ip_forward() {
 set_firewall() {
     _info "Setting firewall rules"
     if _exists "firewall-cmd"; then
+    _error_detect "firewall-cmd --zone=public --add-port=918/tcp --permanent"
+    _error_detect "firewall-cmd --zone=public --add-port=22/tcp --permanent"
+    _error_detect "firewall-cmd --zone=public --add-port=8081/tcp --permanent"
+    _error_detect "firewall-cmd --zone=public --add-port=2004/udp --permanent"
         if [ "$(firewall-cmd --state | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g")" = "running" ]; then
             default_zone="$(firewall-cmd --get-default-zone)"
+            
             if [ "$(firewall-cmd --zone=${default_zone} --query-masquerade)" = "no" ]; then
                 _error_detect "firewall-cmd --permanent --zone=${default_zone} --add-masquerade"
             fi
