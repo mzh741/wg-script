@@ -213,20 +213,27 @@ install_wg_1() {
             _error_detect "dnf -y install kernel-devel"
             _error_detect "dnf -y install kernel-headers"
             _error_detect "dnf -y install qrencode"
-            _error_detect "dnf -y install wireguard-dkms wireguard-tools"
+            _error_detect "dnf -y install wireguard-dkms wireguard-tools
             ;;
         centos)
             if [ -n "$(_os_ver)" -a "$(_os_ver)" -eq 7 ]; then
                 _error_detect "curl -Lso /etc/yum.repos.d/wireguard.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo"
+                _error_detect "yum -y install epel-release"
+                _error_detect "yum -y install kernel-devel"
+                _error_detect "yum -y install kernel-headers"
+                _error_detect "yum -y install qrencode"
+                _error_detect "dnf -y install tar"
+                _error_detect "yum -y install wireguard-dkms wireguard-tools"
             fi
             if [ -n "$(_os_ver)" -a "$(_os_ver)" -eq 8 ]; then
                 _error_detect "curl -Lso /etc/yum.repos.d/wireguard.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-8/jdoss-wireguard-epel-8.repo"
+                _error_detect "yum -y install epel-release"
+                _error_detect "dnf -y install kernel-devel"
+                _error_detect "dnf -y install kernel-headers"
+                _error_detect "dnf -y install qrencode"
+                _error_detect "dnf -y install tar"
+                _error_detect "dnf -y install wireguard-dkms wireguard-tools
             fi
-            _error_detect "yum -y install epel-release"
-            _error_detect "yum -y install kernel-devel"
-            _error_detect "yum -y install kernel-headers"
-            _error_detect "yum -y install qrencode"
-            _error_detect "yum -y install wireguard-dkms wireguard-tools"
             ;;
         *)
             ;; # do nothing
@@ -275,6 +282,11 @@ install_wg_2() {
             _error_detect "yum -y install make"
             _error_detect "yum -y install yum-utils"
             [ -n "$(_os_ver)" -a "$(_os_ver)" -eq 8 ] && _error_detect "yum-config-manager --enable PowerTools"
+            _error_detect "yum -y install qrencode"
+            _error_detect "yum -y install bc"
+            _error_detect "yum -y install gcc"
+            _error_detect "yum -y install make"
+            _error_detect "yum -y install yum-utils"
             _error_detect "yum -y install libmnl-devel"
             _error_detect "yum -y install elfutils-libelf-devel"
             ;;
