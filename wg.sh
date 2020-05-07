@@ -218,22 +218,16 @@ install_wg_1() {
         centos)
             if [ -n "$(_os_ver)" -a "$(_os_ver)" -eq 7 ]; then
                 _error_detect "curl -Lso /etc/yum.repos.d/wireguard.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo"
+            fi
+            if [ -n "$(_os_ver)" -a "$(_os_ver)" -eq 8 ]; then
+                _error_detect "curl -Lso /etc/yum.repos.d/wireguard.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-8/jdoss-wireguard-epel-8.repo"
+            fi
                 _error_detect "yum -y install epel-release"
                 _error_detect "yum -y install kernel-devel"
                 _error_detect "yum -y install kernel-headers"
                 _error_detect "yum -y install qrencode"
                 _error_detect "dnf -y install tar"
                 _error_detect "yum -y install wireguard-dkms wireguard-tools"
-            fi
-            if [ -n "$(_os_ver)" -a "$(_os_ver)" -eq 8 ]; then
-                _error_detect "curl -Lso /etc/yum.repos.d/wireguard.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-8/jdoss-wireguard-epel-8.repo"
-                _error_detect "yum -y install epel-release"
-                _error_detect "dnf -y install kernel-devel"
-                _error_detect "dnf -y install kernel-headers"
-                _error_detect "dnf -y install qrencode"
-                _error_detect "dnf -y install tar"
-                _error_detect "dnf -y install wireguard-dkms wireguard-tools
-            fi
             ;;
         *)
             ;; # do nothing
