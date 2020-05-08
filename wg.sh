@@ -100,7 +100,7 @@ _port() {
       #      break
      #   fi
     #done
-    port = "51820"
+    port = 51820
     printf -- "%s" "${port}"
 }
 
