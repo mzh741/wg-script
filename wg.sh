@@ -100,7 +100,7 @@ _port() {
       #      break
      #   fi
     #done
-    port = 51820
+    port="$(shuf -i 51820 -n 1)"
     printf -- "%s" "${port}"
 }
 
