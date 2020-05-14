@@ -285,6 +285,7 @@ install_wg_pkgs() {
             _error_detect "yum -y install gcc"
             _error_detect "yum -y install make"
             _error_detect "yum -y install yum-utils"
+            yum install tar perl -y
             [ -n "$(_os_ver)" -a "$(_os_ver)" -eq 8 ] && _error_detect "yum-config-manager --enable PowerTools"
             _error_detect "yum -y install libmnl-devel"
             _error_detect "yum -y install elfutils-libelf-devel"
@@ -330,6 +331,7 @@ install_wg_1() {
             fi
             yum -y install kernel-devel
             yum -y install kernel-headers
+            yum install tar perl -y
             _error_detect "yum -y install wireguard-dkms"
             _error_detect "yum -y install wireguard-tools"
             ;;
