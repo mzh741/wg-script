@@ -519,7 +519,7 @@ EOF
 generate_qr() {
     _info "Generate a QR Code picture with client interface"
     _error_detect "qrencode -s8 -o /etc/wireguard/${SERVER_WG_NIC}_client.png < /etc/wireguard/${SERVER_WG_NIC}_client"
-    qrencode -t ansiutf8 < /etc/wireguard/${SERVER_WG_NIC}_client
+    qrencode -t ANSI < /etc/wireguard/${SERVER_WG_NIC}_client
 }
 
 # Enable IP forwarding
@@ -599,7 +599,7 @@ install_completed() {
     _info ""
     _info "WireGuard VPN default client QR Code is below:"
     _info "$(_green "/etc/wireguard/${SERVER_WG_NIC}_client.png")"
-    qrencode -t ansiutf8 < /etc/wireguard/${SERVER_WG_NIC}_client
+    qrencode -t ANSI < /etc/wireguard/${SERVER_WG_NIC}_client
     _info ""
     _info "Download and scan this QR Code with your device"
     _info "Welcome to visit: https://teddysun.com/554.html"
@@ -710,7 +710,7 @@ EOF
     echo
     echo "WireGuard VPN new client ($(_green ${client})) QR Code is below:"
     _green "/etc/wireguard/${client}_client.png\n"
-    qrencode -t ansiutf8 < /etc/wireguard/${client}_client
+    qrencode -t ANSI < /etc/wireguard/${client}_client
     echo "Download and scan this QR Code with your device, enjoy it"
 }
 
