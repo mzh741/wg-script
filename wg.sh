@@ -301,8 +301,8 @@ install_wg_1() {
     _info "Install wireguard from repository"
     case "$(_os)" in
         ubuntu)
-            _error_detect "add-apt-repository ppa:wireguard/wireguard"
-            _error_detect "apt-get update"
+            #_error_detect "add-apt-repository ppa:wireguard/wireguard"
+            #_error_detect "apt-get update"
             _error_detect "apt-get -y install linux-headers-$(uname -r)"
             _error_detect "apt-get -y install wireguard-dkms"
             _error_detect "apt-get -y install wireguard-tools"
