@@ -1,13 +1,4 @@
 #!/usr/bin/env bash
-#
-# This is a Shell script for configure and start WireGuard VPN server.
-#
-# Copyright (C) 2019 - 2020 Teddysun <i@teddysun.com>
-#
-# Reference URL:
-# https://www.wireguard.com
-# https://git.zx2c4.com/WireGuard
-# https://teddysun.com/554.html
 
 trap _exit INT QUIT TERM
 
@@ -462,6 +453,7 @@ create_server_if() {
 Address = ${SERVER_WG_IPV4}/24,${SERVER_WG_IPV6}/64
 ListenPort = ${SERVER_WG_PORT}
 PrivateKey = ${SERVER_PRIVATE_KEY}
+MTU = ${MTUN}
 
 [Peer]
 PublicKey = ${CLIENT_PUBLIC_KEY}
@@ -474,6 +466,7 @@ EOF
 Address = ${SERVER_WG_IPV4}/24
 ListenPort = ${SERVER_WG_PORT}
 PrivateKey = ${SERVER_PRIVATE_KEY}
+MTU = ${MTUN}
 
 [Peer]
 PublicKey = ${CLIENT_PUBLIC_KEY}
@@ -493,6 +486,7 @@ create_client_if() {
 PrivateKey = ${CLIENT_PRIVATE_KEY}
 Address = ${CLIENT_WG_IPV4}/24,${CLIENT_WG_IPV6}/64
 DNS = ${CLIENT_DNS_1},${CLIENT_DNS_2}
+MTU = ${MTUN}
 
 [Peer]
 PublicKey = ${SERVER_PUBLIC_KEY}
@@ -506,6 +500,7 @@ EOF
 PrivateKey = ${CLIENT_PRIVATE_KEY}
 Address = ${CLIENT_WG_IPV4}/24
 DNS = ${CLIENT_DNS_1},${CLIENT_DNS_2}
+MTU = ${MTUN}
 
 [Peer]
 PublicKey = ${SERVER_PUBLIC_KEY}
@@ -609,9 +604,9 @@ install_completed() {
 }
 
 add_client() {
-    if ! _is_installed; then
-        _red "WireGuard was not installed, please install it and try again\n" && exit 1
-    fi
+    #if ! _is_installed; then
+    #    _red "WireGuard was not installed, please install it and try again\n" && exit 1
+    #fi
     default_server_if="/etc/wireguard/${SERVER_WG_NIC}.conf"
     default_client_if="/etc/wireguard/${SERVER_WG_NIC}_client"
     [ ! -s "${default_server_if}" ] && echo "The default server interface ($(_red ${default_server_if})) does not exists" && exit 1
@@ -664,6 +659,7 @@ add_client() {
 PrivateKey = ${CLIENT_PRIVATE_KEY}
 Address = ${CLIENT_WG_IPV4}/24,${CLIENT_WG_IPV6}/64
 DNS = ${CLIENT_DNS_1},${CLIENT_DNS_2}
+MTU = ${MTUN}
 
 [Peer]
 PublicKey = ${SERVER_PUBLIC_KEY}
@@ -685,6 +681,7 @@ EOF
 PrivateKey = ${CLIENT_PRIVATE_KEY}
 Address = ${CLIENT_WG_IPV4}/24
 DNS = ${CLIENT_DNS_1},${CLIENT_DNS_2}
+MTU = ${MTUN}
 
 [Peer]
 PublicKey = ${SERVER_PUBLIC_KEY}
@@ -936,6 +933,7 @@ SERVER_PUB_NIC="${VPN_SERVER_PUB_NIC:-$(_nic)}"
 SERVER_WG_NIC="${VPN_SERVER_WG_NIC:-wg0}"
 SERVER_WG_IPV4="${VPN_SERVER_WG_IPV4:-10.88.88.1}"
 SERVER_WG_IPV6="${VPN_SERVER_WG_IPV6:-fd88:88:88::1}"
+MTUN = 1390
 SERVER_WG_PORT="${VPN_SERVER_WG_PORT:-$(_port)}"
 CLIENT_WG_IPV4="${VPN_CLIENT_WG_IPV4:-10.88.88.2}"
 CLIENT_WG_IPV6="${VPN_CLIENT_WG_IPV6:-fd88:88:88::2}"
