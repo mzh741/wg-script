@@ -64,7 +64,7 @@ _exists() {
 _ipv4() {
     local ipv4="$( ip addr | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | \
                    egrep -v "^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\.|^169\.254\." | head -n 1 )"
-    [ -z "${ipv4}" ] && ipv4="$( curl ipv4.ip.sb )"
+    [ -z "${ipv4}" ] && ipv4="$( wget -qO- -t1 -T2 ipv4.icanhazip.com )"
     #wget -qO- -t1 -T2 ipv4.icanhazip.com
     [ -z "${ipv4}" ] && ipv4="$( wget -qO- -t1 -T2 ipinfo.io/ip )"
     printf -- "%s" "${ipv4}"
@@ -72,7 +72,7 @@ _ipv4() {
 
 _ipv6() {
     local ipv6=""
-    ipv6="$( curl ipv6.ip.sb )"
+    ipv6="$( wget -qO- -t1 -T2 ipv6.icanhazip.com )"
     #wget -qO- -t1 -T2 ipv6.icanhazip.com
     printf -- "%s" "${ipv6}"
 }
@@ -933,7 +933,7 @@ SERVER_PUB_NIC="${VPN_SERVER_PUB_NIC:-$(_nic)}"
 SERVER_WG_NIC="${VPN_SERVER_WG_NIC:-wg0}"
 SERVER_WG_IPV4="${VPN_SERVER_WG_IPV4:-10.88.88.1}"
 SERVER_WG_IPV6="${VPN_SERVER_WG_IPV6:-fd88:88:88::1}"
-MTUN = "1390"
+MTUN="1390"
 SERVER_WG_PORT="${VPN_SERVER_WG_PORT:-$(_port)}"
 CLIENT_WG_IPV4="${VPN_CLIENT_WG_IPV4:-10.88.88.2}"
 CLIENT_WG_IPV6="${VPN_CLIENT_WG_IPV6:-fd88:88:88::2}"
