@@ -826,6 +826,15 @@ install_from_repo() {
     install_completed
 }
 
+just_create_conf() {
+    create_server_if
+    create_client_if
+    generate_qr
+    enable_ip_forward
+    set_firewall
+    install_completed
+}
+
 install_from_source() {
     _is_installed
     rt=$?
@@ -899,6 +908,9 @@ main() {
             ;;
         -r|--repo)
             install_from_repo
+            ;;
+        -c|--conf)
+            just_create_conf
             ;;
         -s|--source)
             install_from_source
